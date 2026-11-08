@@ -1,0 +1,116 @@
+/* Sitio de TejIA. Paleta de la identidad (D-26): papel, tinta, añil, grana; fuentes del sistema (sin descargas). */
+:root {
+  --papel: #F5F6F9; --lienzo: #FFFFFF; --tinta: #1A1E36; --tenue: #4F5470; --hilo: #D9DCE6;
+  --anil: #2E3A8C; --grana: #B3244A; --ocre: #7A4F0C;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, monospace;
+  --ancho: 72rem;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --papel: #11142A; --lienzo: #191D36; --tinta: #E8EAF4; --tenue: #AEB3CF; --hilo: #2C3150; --anil: #9CA6FA; --grana: #F28AA5; --ocre: #F2C77A; }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { margin: 0; background: var(--papel); color: var(--tinta); font: 1.0625rem/1.6 var(--sans); }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--anil); }
+a:focus-visible { outline: 2px solid var(--anil); outline-offset: 3px; border-radius: 3px; }
+.saltar { position: absolute; left: -999px; top: 0.5rem; background: var(--lienzo); padding: 0.5rem 1rem; z-index: 9; }
+.saltar:focus { left: 0.5rem; }
+
+.barra { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0.75rem clamp(1rem, 4vw, 2.5rem); background: color-mix(in srgb, var(--papel) 88%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--hilo); }
+.marca { display: flex; align-items: center; gap: 0.5rem; font: 600 1.15rem var(--sans); color: var(--tinta); text-decoration: none; }
+.barra nav { display: flex; gap: clamp(0.75rem, 2vw, 1.75rem); flex-wrap: wrap; }
+.barra nav a { color: var(--tenue); text-decoration: none; font-size: 0.95rem; padding: 0.4rem 0; }
+.barra nav a:hover { color: var(--tinta); }
+
+main > section { max-width: var(--ancho); margin: 0 auto; padding: clamp(3.5rem, 8vw, 6.5rem) clamp(1rem, 4vw, 2.5rem); }
+h1, h2 { font-family: var(--serif); font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; margin: 0; }
+h1 { font-size: clamp(2.6rem, 6.2vw, 4.8rem); }
+h1 em { font-style: italic; color: var(--grana); }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.75rem); }
+h3 { font: 600 1.08rem/1.35 var(--sans); margin: 0 0 0.35rem; }
+p { margin: 0; }
+.ceja { font: 500 0.8rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--tenue); margin-bottom: 1.25rem; }
+.entrada { font-size: clamp(1.1rem, 1.6vw, 1.3rem); max-width: 34rem; margin-top: 1.5rem; }
+.estado { margin-top: 1.75rem; max-width: 34rem; color: var(--tenue); font-size: 0.98rem; }
+.sello { display: inline-block; font: 600 0.72rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--grana); border: 1px solid currentColor; border-radius: 999px; padding: 0.1rem 0.55rem; margin-right: 0.35rem; vertical-align: 0.1em; }
+
+.portada { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; min-height: min(78vh, 46rem); }
+.telar { width: 100%; height: auto; overflow: visible; }
+.telar-etiqueta { font: 500 13px var(--mono); fill: var(--tenue); }
+.telar-pie { font: italic 15px var(--serif); fill: var(--tenue); }
+.urdimbre { stroke-width: 7; stroke-linecap: round; }
+.trama, .trama-cruce { stroke: var(--tinta); stroke-width: 4; stroke-linecap: round; }
+.trama-cruce { stroke-linecap: butt; }
+.halo-h { stroke: var(--papel); stroke-width: 13; stroke-linecap: butt; }
+.halo-v { stroke: var(--papel); stroke-width: 10; stroke-linecap: butt; }
+/* La trama se teje al cargar, solo si la persona no pidió menos movimiento; sin animación se ve completa. */
+@media (prefers-reduced-motion: no-preference) {
+  .trama { stroke-dasharray: 320; stroke-dashoffset: 320; animation: tejer 0.9s cubic-bezier(.3,.7,.2,1) forwards; }
+  .cruces { opacity: 0; animation: anudar 0.5s ease-out 1.25s forwards; }
+}
+@keyframes anudar { to { opacity: 1; } }
+.t0 { animation-delay: 250ms; }
+.t1 { animation-delay: 360ms; }
+.t2 { animation-delay: 470ms; }
+.t3 { animation-delay: 580ms; }
+.t4 { animation-delay: 690ms; }
+.t5 { animation-delay: 800ms; }
+.t6 { animation-delay: 910ms; }
+.t7 { animation-delay: 1020ms; }
+
+@keyframes tejer { to { stroke-dashoffset: 0; } }
+
+.encabezado { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem 2rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.encabezado p { color: var(--tenue); max-width: 30rem; }
+
+.vitrina { position: relative; padding-right: clamp(3rem, 12vw, 9rem); }
+.ventana { margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--hilo); background: var(--lienzo);
+  box-shadow: 0 30px 60px -30px rgb(26 30 54 / 0.35); }
+.ventana-barra { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--hilo); }
+.ventana-barra i { width: 10px; height: 10px; border-radius: 50%; background: var(--hilo); }
+.telefono { position: absolute; right: 0; bottom: -2.5rem; width: clamp(8.5rem, 20vw, 14rem); margin: 0; border-radius: 26px; overflow: hidden;
+  border: 7px solid var(--tinta); background: var(--tinta); box-shadow: 0 24px 48px -20px rgb(26 30 54 / 0.45); }
+.hechos { list-style: none; padding: 0; margin: 5rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.hechos li { border-top: 2px solid var(--anil); padding-top: 1rem; }
+.hechos p, .hilos p, dd { color: var(--tenue); }
+
+.despues { border-top: 1px solid var(--hilo); }
+.hilos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3rem; }
+.hilos li { position: relative; padding: 1.25rem 0 1.5rem 1.4rem; border-bottom: 1px solid var(--hilo); }
+.hilos li::before { content: ""; position: absolute; left: 0; top: 1.4rem; bottom: 1.6rem; width: 4px; border-radius: 2px; background: var(--c); }
+.h-anil { --c: #2E3A8C; }
+.h-ocre { --c: #9A6410; }
+.h-mar { --c: #2A6E8A; }
+.h-grana { --c: #B3244A; }
+.h-musgo { --c: #3F7354; }
+.h-uva { --c: #6A4C9C; }
+
+.etapa { font: 500 0.72rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--tenue); }
+.etapa.siguiente { color: var(--grana); }
+
+.cuidado { background: var(--lienzo); border-radius: 14px; max-width: calc(var(--ancho) - 2rem) !important; }
+.cuidado dl { margin: 2.5rem 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3rem; }
+dt { font-weight: 600; margin-bottom: 0.3rem; }
+dd { margin: 0; }
+
+.plataformas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; margin-top: 2rem; }
+.acceso { margin-top: 2rem; font: italic 1.15rem var(--serif); color: var(--tenue); }
+
+.pie { display: flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 2.5rem 1rem 3rem; color: var(--tenue);
+  font-size: 0.9rem; border-top: 1px solid var(--hilo); }
+
+@media (max-width: 860px) {
+  .portada { grid-template-columns: 1fr; min-height: 0; }
+  .barra nav { display: none; }
+  .hechos, .hilos, .cuidado dl, .plataformas { grid-template-columns: 1fr; }
+  .vitrina { padding-right: 4.5rem; }
+  .hechos { margin-top: 4rem; }
+}
