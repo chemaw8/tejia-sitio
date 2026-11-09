@@ -45,8 +45,15 @@ p { margin: 0; }
 .portada { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; min-height: min(78vh, 46rem); }
 .telar { width: 100%; height: auto; overflow: visible; }
 .telar-etiqueta { font: 500 13px var(--mono); fill: var(--tenue); }
-.telar-pie { font: italic 15px var(--serif); fill: var(--tenue); }
+.telar-etiqueta.por-tejer { opacity: 0.7; }
+.telar-permisos { letter-spacing: 0.06em; }
 .urdimbre { stroke-width: 7; stroke-linecap: round; }
+/* Lo que falta tejer pasa suelto por debajo de la trama, punteado: la firma dice qué ya funciona. */
+.urdimbre.suelta { stroke-width: 5; stroke-dasharray: 1 11; opacity: 0.75; }
+.telar-leyenda { color: var(--tenue); font: 500 12px var(--mono); }
+.telar-leyenda text { fill: var(--tenue); }
+.ley-tejido { stroke-width: 6; stroke-linecap: round; }
+.ley-suelto { stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1 8; }
 .trama, .trama-cruce { stroke: var(--tinta); stroke-width: 4; stroke-linecap: round; }
 .trama-cruce { stroke-linecap: butt; }
 .halo-h { stroke: var(--papel); stroke-width: 13; stroke-linecap: butt; }
@@ -71,6 +78,26 @@ p { margin: 0; }
 .encabezado { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem 2rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
 .encabezado p { color: var(--tenue); max-width: 30rem; }
 
+/* Colores de hilo: los mismos del telar, para que cada app continúe su hilo. */
+.c-mar { --c: #2A6E8A; } .c-anil { --c: #2E3A8C; } .c-ocre { --c: #9A6410; }
+.c-uva { --c: #6A4C9C; } .c-grana { --c: #B3244A; } .c-musgo { --c: #3F7354; }
+@media (prefers-color-scheme: dark) {
+  .c-mar { --c: #7FC3DE; } .c-anil { --c: #9CA6FA; } .c-ocre { --c: #F2C77A; }
+  .c-uva { --c: #C3A8F0; } .c-grana { --c: #F28AA5; } .c-musgo { --c: #8FCBA4; }
+}
+
+/* Recorrido: cada app entra con su hilo (una raya de su color que cruza la sección) y su captura real. */
+.hilo-app { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0; position: relative; }
+.hilo-app::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; border-radius: 3px;
+  background: var(--c); opacity: 0.85; }
+.hilo-app.invertido { grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.8fr); }
+.hilo-app.invertido .hilo-texto { order: 2; }
+.hilo-nombre { font: 600 0.78rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--c); margin-bottom: 0.6rem; }
+.hilo-texto h3 { font: 600 clamp(1.45rem, 2.4vw, 1.9rem)/1.15 var(--serif); letter-spacing: -0.01em; margin-bottom: 0.8rem; }
+.hilo-texto p:last-child { color: var(--tenue); }
+.hilo-app.con-telefono { padding-bottom: clamp(4.5rem, 8vw, 6.5rem); }
+
 .vitrina { position: relative; padding-right: clamp(3rem, 12vw, 9rem); }
 .ventana { margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--hilo); background: var(--lienzo);
   box-shadow: 0 30px 60px -30px rgb(26 30 54 / 0.35); }
@@ -78,26 +105,20 @@ p { margin: 0; }
 .ventana-barra i { width: 10px; height: 10px; border-radius: 50%; background: var(--hilo); }
 .telefono { position: absolute; right: 0; bottom: -2.5rem; width: clamp(8.5rem, 20vw, 14rem); margin: 0; border-radius: 26px; overflow: hidden;
   border: 7px solid var(--tinta); background: var(--tinta); box-shadow: 0 24px 48px -20px rgb(26 30 54 / 0.45); }
-.hechos { list-style: none; padding: 0; margin: 5rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
-.hechos li { border-top: 2px solid var(--anil); padding-top: 1rem; }
+.hechos { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.hechos li { border-top: 3px solid var(--c, var(--anil)); padding-top: 1rem; }
 .hechos p, .hilos p, dd { color: var(--tenue); }
 
 .despues { border-top: 1px solid var(--hilo); }
 .hilos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3rem; }
 .hilos li { position: relative; padding: 1.25rem 0 1.5rem 1.4rem; border-bottom: 1px solid var(--hilo); }
 .hilos li::before { content: ""; position: absolute; left: 0; top: 1.4rem; bottom: 1.6rem; width: 4px; border-radius: 2px; background: var(--c); }
-.h-anil { --c: #2E3A8C; }
-.h-ocre { --c: #9A6410; }
-.h-mar { --c: #2A6E8A; }
-.h-grana { --c: #B3244A; }
-.h-musgo { --c: #3F7354; }
-.h-uva { --c: #6A4C9C; }
 
 .etapa { font: 500 0.72rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--tenue); }
 .etapa.siguiente { color: var(--grana); }
 
 .cuidado { background: var(--lienzo); border-radius: 14px; max-width: calc(var(--ancho) - 2rem) !important; }
-.cuidado dl { margin: 2.5rem 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3rem; }
+.cuidado dl { margin: 2.5rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem 3rem; }
 dt { font-weight: 600; margin-bottom: 0.3rem; }
 dd { margin: 0; }
 
@@ -110,7 +131,11 @@ dd { margin: 0; }
 @media (max-width: 860px) {
   .portada { grid-template-columns: 1fr; min-height: 0; }
   .barra nav { display: none; }
-  .hechos, .hilos, .cuidado dl, .plataformas { grid-template-columns: 1fr; }
+  .hechos, .hilos, .cuidado dl, .plataformas, .hilo-app { grid-template-columns: 1fr; }
+  .hilo-app.invertido { grid-template-columns: 1fr; }
+  .hilo-app.invertido .hilo-texto { order: 0; }
   .vitrina { padding-right: 4.5rem; }
   .hechos { margin-top: 4rem; }
 }
+
+@media (min-width: 861px) and (max-width: 1100px) { .cuidado dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
