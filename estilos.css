@@ -95,7 +95,8 @@ p { margin: 0; }
 .hilo-app.invertido .hilo-texto { order: 2; }
 .hilo-nombre { font: 600 0.78rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--c); margin-bottom: 0.6rem; }
 .hilo-texto h3 { font: 600 clamp(1.45rem, 2.4vw, 1.9rem)/1.15 var(--serif); letter-spacing: -0.01em; margin-bottom: 0.8rem; }
-.hilo-texto p:last-child { color: var(--tenue); }
+.hilo-texto p:not(.hilo-nombre) { color: var(--tenue); }
+.hilo-texto p + p { margin-top: 0.75rem; }
 .hilo-app.con-telefono { padding-bottom: clamp(4.5rem, 8vw, 6.5rem); }
 
 .vitrina { position: relative; padding-right: clamp(3rem, 12vw, 9rem); }
@@ -105,7 +106,7 @@ p { margin: 0; }
 .ventana-barra i { width: 10px; height: 10px; border-radius: 50%; background: var(--hilo); }
 .telefono { position: absolute; right: 0; bottom: -2.5rem; width: clamp(8.5rem, 20vw, 14rem); margin: 0; border-radius: 26px; overflow: hidden;
   border: 7px solid var(--tinta); background: var(--tinta); box-shadow: 0 24px 48px -20px rgb(26 30 54 / 0.45); }
-.hechos { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.hechos { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; }
 .hechos li { border-top: 3px solid var(--c, var(--anil)); padding-top: 1rem; }
 .hechos p, .hilos p, dd { color: var(--tenue); }
 
@@ -143,4 +144,4 @@ dd { margin: 0; }
   .hechos { margin-top: 4rem; }
 }
 
-@media (min-width: 861px) and (max-width: 1100px) { .cuidado dl, .costuras { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 861px) and (max-width: 1100px) { .cuidado dl, .costuras, .hechos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
